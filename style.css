@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  font-family: 'Playfair Display', serif; /* Uma fonte serif elegante, como a do menu original */
+  background-color: #000;
+}
+
+.main-header {
+  background-color: #000000;
+  display: flex;
+  justify-content: space-between; /* Distribui os 3 itens: spacer, logo, nav */
+  align-items: left; /* Alinha verticalmente no centro */
+  padding: 0px 50px; /* Adiciona padding para um aspeto mais limpo */
+  border-top: none
+}
+
+.spacer {
+  flex: 1; /* Ocupa um terço do espaço à esquerda para centralizar o logo */
+}
+
+.logo-container {
+  flex: 1; /* Ocupa um terço do espaço no centro */
+  text-align: left; /* Centraliza o logo dentro do container */
+}
+
+.main-logo {
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin: 0 auto;
+}
+
+.main-nav {
+  flex: 1; /* Ocupa um terço do espaço à direita */
+  text-align: right;
+  display: flex;
+  justify-content: flex-end; /* Alinha os botões à direita */
+  gap: 15px; /* Espaço entre os botões */
+}
+
+.nav-btn {
+  color: #dcb07e; /* Cor dourada viva */
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9em;
+  border: 2px solid #dcb07e; /* Borda dourada viva */
+  padding: 10px 25px; /* Mais padding para um aspeto de botão */
+  border-radius: 4px; /* Retangular com cantos ligeiramente arredondados */
+  display: inline-block;
+  transition: all 0.3s ease; /* Efeito suave no hover */
+}
+
+.nav-btn:hover {
+  background-color: #dcb07e; /* Inverte as cores no hover */
+  color: #000000;
+}
