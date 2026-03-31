@@ -4,8 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Traços Rústicos | Antiguidades & Peças com História</title>
-  <link rel="icon" type="image/png" href="/TracosRusticos-pagina/src/Logo_TR_5.png">
-  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        </header>
+
   <style>
     :root {
       --cream: #f9f5f0;
@@ -484,16 +489,15 @@
 
   <!-- HEADER -->
   <header class="main-header">
-    <div class="spacer"></div>
-    <div class="logo-container">
-      <img src="/TracosRusticos-pagina/src/Logo_TR_5.png" alt="Ícone de Traços Rústicos" width="150" height="150" class="main-logo">
-    </div>
-    <nav class="main-nav">
-      <a href="#sobre" class="nav-btn">História</a>
-      <a href="#galeria" class="nav-btn">Coleção</a>
-      <a href="#contacto" class="nav-btn">Contacto</a>
-    </nav>
-  </header>
+  <div class="spacer"></div> <div class="logo-container">
+    <img src="/TracosRusticos-pagina/src/Logo_TR_5.png" alt="Ícone de Traços Rústicos" width="150" height="150" class="main-logo">
+  </div>
+  <nav class="main-nav">
+    <a href="#sobre" class="nav-btn">História</a>
+    <a href="#galeria" class="nav-btn">Coleção</a>
+    <a href="#contacto" class="nav-btn">Contacto</a>
+  </nav>
+</header>
 
   <!-- HERO -->
   <section class="hero">
@@ -584,7 +588,7 @@
         <p>Usamos o <em>localStorage</em> do seu browser exclusivamente para guardar a sua preferência relativa a este aviso. Estes dados ficam no seu dispositivo e nunca são transmitidos a terceiros.</p>
 
         <h3>Imagens</h3>
-        <p>As imagens da galeria são alojadas localmente no repositório do projeto. Não são recolhidos dados pessoais dos visitantes através deste serviço.</p>
+        <p>As imagens da galeria são alojadas na plataforma <strong>Cloudinary</strong>, um serviço seguro de armazenamento de ficheiros. Não são recolhidos dados pessoais dos visitantes através deste serviço.</p>
 
         <h3>Cookies</h3>
         <p>Este site <strong>não utiliza cookies</strong> de rastreamento, publicidade ou análise. Não partilhamos qualquer dado com terceiros.</p>
@@ -610,40 +614,42 @@
     <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">›</button>
   </div>
 
-  <script>
-    // Garante que a página abre sempre no topo
-    window.scrollTo(0, 0);
-    history.scrollRestoration = 'manual';
 
+  <script>
     // ============================================================
     // GALERIA — Para adicionar uma nova peça, copia um bloco { }
     // e preenche: img (caminho da imagem), titulo e desc.
     // ============================================================
     const pecas = [
       {
-        img: "/TracosRusticos-pagina/images/Cadeira1_marco.jpg",
+        img: "src/Cadeira1_marco.jpg",
         titulo: "Cadeirão Vintage",
         desc: "Peça restaurada com acabamento artesanal."
       },
       {
-        img: "/TracosRusticos-pagina/images/Cadeira2_marco.jpg",
+        img: "src/Cadeira2_marco.jpg",
         titulo: "Cadeira de Teatro",
         desc: "Peça única com história e carácter."
       },
       {
-        img: "/TracosRusticos-pagina/images/Cadeira3_marco.jpg",
+        img: "src/Cadeira3_marco.jpg",
         titulo: "Cadeirão Clássico",
         desc: "Estrutura em madeira maciça com estofado renovado."
       },
       {
-        img: "/TracosRusticos-pagina/images/mesa_carpinteiro.jpg",
+        img: "src/mesa_carpinteiro.jpg",
         titulo: "Mesa de Carpinteiro",
         desc: "Mesa de trabalho vintage em madeira natural."
       },
       {
-        img: "/TracosRusticos-pagina/images/657110804_2421432631655613_7578912158845453602_n.jpg",
-        titulo: "Conjunto de Cadeiras",
-        desc: "Par de cadeiras com mesa intermédia em teca."
+        img: "src/banco.jpg",
+        titulo: "Banco Antigo",
+        desc: "Banco rústico em madeira sólida."
+      },
+      {
+        img: "src/peça para capa do site.jpg",
+        titulo: "Peça Decorativa",
+        desc: "Objeto artesanal com detalhes únicos."
       }
     ];
     // ============================================================
