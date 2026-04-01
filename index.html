@@ -24,13 +24,19 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { 
+      scroll-behavior: smooth; 
+      overflow-x: hidden; 
+      width: 100%;
+    }
 
     body {
       font-family: 'Cormorant Garamond', serif;
       background: var(--cream);
       color: var(--text);
       line-height: 1.7;
+      overflow-x: hidden;
+      width: 100%;
     }
 
     /* ── NAVEGAÇÃO ── */
@@ -60,6 +66,12 @@
       text-transform: uppercase;
       letter-spacing: 4px;
       opacity: 0.8;
+    }
+
+    .main-logo {
+      max-width: 150px;
+      height: auto;
+      display: block;
     }
 
     nav a {
@@ -479,17 +491,36 @@
     @media (max-width: 900px) {
       .sobre, .contact-grid { grid-template-columns: 1fr; }
       .gallery-grid { columns: 2; }
-      .sobre-img { height: 300px; margin-top: 2rem; box-shadow: 10px 10px 0 var(--gold); }
-      header { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 5%; }
-      .logo-container { margin-bottom: 0.5rem; }
-      nav a { margin: 0 1rem; }
+      .sobre-img { 
+        height: 300px; 
+        margin-top: 2rem; 
+        box-shadow: 10px 10px 0 var(--gold); 
+        width: 100%;
+      }
+      header { 
+        flex-direction: column; 
+        gap: 1rem; 
+        text-align: center; 
+        padding: 2rem 5%; 
+        width: 100%;
+      }
+      .logo-container { margin-bottom: 0.5rem; width: 100%; }
+      .main-logo { max-width: 120px; height: auto; }
+      nav { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; }
+      nav a { margin: 0.5rem; font-size: 0.75rem; }
       .lightbox-prev { left: 0.5rem; }
       .lightbox-next { right: 0.5rem; }
+      .sobre { padding: 4rem 5%; gap: 2rem; }
+      .contacto { padding: 4rem 5%; }
     }
 
     @media (max-width: 600px) {
       .gallery-grid { columns: 1; }
-      .cookie-bar { flex-direction: column; align-items: flex-start; }
+      .cookie-bar { flex-direction: column; align-items: flex-start; padding: 1rem 5%; }
+      .hero h2 { font-size: 2.2rem; }
+      .hero p { font-size: 1.1rem; }
+      .section-header h3 { font-size: 2.2rem; }
+      .contact-info h4 { font-size: 1.6rem; }
     }
   </style>
 </head>
@@ -497,8 +528,8 @@
 
   <!-- HEADER -->
   <header class="main-header">
-  <div class="spacer"></div> <div class="logo-container">
-    <img src="/TracosRusticos-pagina/src/logo.png" alt="Ícone de Traços Rústicos" width="150" height="150" class="main-logo">
+  <div class="logo-container">
+    <img src="/TracosRusticos-pagina/src/logo.png" alt="Ícone de Traços Rústicos" class="main-logo">
   </div>
   <nav class="main-nav">
     <a href="#sobre" class="nav-btn">História</a>
