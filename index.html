@@ -282,6 +282,33 @@
     .gallery-item:hover .gallery-overlay { opacity: 1; }
     .gallery-overlay h4 { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
 
+    /* ── ETIQUETAS DE DISPONIBILIDADE ── */
+    .badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      pointer-events: none;
+    }
+    .badge-available {
+      background: #2ecc71; /* Verde */
+      color: white;
+    }
+    .badge-unavailable {
+      background: #e74c3c; /* Vermelho */
+      color: white;
+    }
+    .gallery-item.unavailable img {
+      filter: grayscale(0.8) brightness(0.7);
+    }
+
     .gallery-empty {
       text-align: center;
       padding: 3rem;
@@ -719,38 +746,44 @@
   <script>
     // ============================================================
     // GALERIA — Para adicionar uma nova peça, copia um bloco { }
-    // e preenche: img (caminho da imagem), titulo e desc.
+    // e preenche: img (caminho da imagem), titulo, desc e disponivel (true/false).
     // ============================================================
     const pecas = [
       {
-        img: "/TracosRusticos-pagina/src/Cadeira1_marco.png",
+        img: "/TracosRusticos-pagina/src/Cadeira1_marco.webp",
         titulo: "Cadeirão Vintage",
-        desc: "Cadeirão vintage restaurado estofado em tecido."
+        desc: "Cadeirão vintage restaurado estofado em tecido.",
+        disponivel: true
       },
       {
-        img: "/TracosRusticos-pagina/src/Cadeira2_marco.jpg",
+        img: "/TracosRusticos-pagina/src/Cadeira2_marco.webp",
         titulo: "Cadeira de Teatro",
-        desc: "Cadeira de madeira com assento estofado em veludo vermelho."
+        desc: "Cadeira de madeira com assento estofado em veludo vermelho.",
+        disponivel: true
       },
       {
-        img: "/TracosRusticos-pagina/src/Cadeira3_marco.jpg",
+        img: "/TracosRusticos-pagina/src/Cadeira3_marco.webp",
         titulo: "Conjunto de Cadeiras + Mesa",
-        desc: "Conjunto de Cadeiras com mesa restaurada em madeira maciça, perfeito para refeições rústicas."
+        desc: "Conjunto de Cadeiras com mesa restaurada em madeira maciça, perfeito para refeições rústicas.",
+        disponivel: true
       },
       {
-        img: "/TracosRusticos-pagina/src/mesa_carpinteiro.jpg",
+        img: "/TracosRusticos-pagina/src/mesa_carpinteiro.webp",
         titulo: "Mesa de Carpinteiro",
-        desc: "Mesa de trabalho ideal para um espaço de criação."
+        desc: "Mesa de trabalho ideal para um espaço de criação.",
+        disponivel: true
       },
       {
-        img: "/TracosRusticos-pagina/src/banco.jpg",
+        img: "/TracosRusticos-pagina/src/banco.webp",
         titulo: "Banco Rústico",
-        desc: "Banco estilo suíço, perfeito quer para interiores quer para exteriores."
+        desc: "Banco estilo suíço, perfeito quer para interiores quer para exteriores.",
+        disponivel: true
       },
       {
-        img: "/TracosRusticos-pagina/src/Cadeira_jardim.jpg",
+        img: "/TracosRusticos-pagina/src/Cadeira_jardim.webp",
         titulo: "Cadeira de Jardim",
-        desc: "Cadeira rústica ideal para ambientes exteriores."
+        desc: "Cadeira rústica ideal para ambientes exteriores.",
+        disponivel: true
       },
     ];
     // ============================================================
@@ -760,8 +793,13 @@
     let currentIndex = 0;
 
     pecas.forEach((peca, i) => {
+      const statusClass = peca.disponivel ? 'available' : 'unavailable';
+      const statusText = peca.disponivel ? 'Disponível' : 'Indisponível';
+      const badgeClass = peca.disponivel ? 'badge-available' : 'badge-unavailable';
+
       grid.innerHTML += `
-        <div class="gallery-item" onclick="abrirLightbox(${i})">
+        <div class="gallery-item ${statusClass}" onclick="abrirLightbox(${i})">
+          <div class="badge ${badgeClass}">${statusText}</div>
           <img src="${peca.img}" alt="${peca.titulo}" loading="lazy">
           <div class="gallery-overlay">
             <h4>${peca.titulo}</h4>
