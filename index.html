@@ -3,9 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Móveis Vintage Rústicos Restaurados | Traços Rústicos Fundão</title>
-  <meta name="description" content="Oficina de móveis vintage e peças artesanais com história. Mobiliário rústico restaurado no Fundão. Cada peça é um testemunho do tempo. Visite-nos!">
-<link rel="stylesheet" href="style.css">
+  <title>Traços Rústicos | Móveis Vintage e Restauro Artesanal no Fundão</title>
+  <meta name="description" content="Oficina de mobiliário vintage e peças artesanais no Fundão. Especialistas em restauro de móveis rústicos com alma e história. Visite o nosso espaço!">
+  <meta name="keywords" content="móveis vintage, mobiliário rústico, restauro de móveis, antiguidades Fundão, decoração artesanal, peças com história, Traços Rústicos">
+  <meta name="author" content="Traços Rústicos">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jotanuno17.github.io/TracosRusticos-pagina/">
+  <meta property="og:title" content="Traços Rústicos | Móveis Vintage e Restauro Artesanal">
+  <meta property="og:description" content="Oficina de mobiliário vintage e peças artesanais no Fundão. Descubra peças únicas com alma e história.">
+  <meta property="og:image" content="https://jotanuno17.github.io/TracosRusticos-pagina/src/logo.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://jotanuno17.github.io/TracosRusticos-pagina/">
+  <meta property="twitter:title" content="Traços Rústicos | Móveis Vintage e Restauro Artesanal">
+  <meta property="twitter:description" content="Oficina de mobiliário vintage e peças artesanais no Fundão. Descubra peças únicas com alma e história.">
+  <meta property="twitter:image" content="https://jotanuno17.github.io/TracosRusticos-pagina/src/logo.png">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -80,6 +97,17 @@
       transition: transform 0.3s ease;
     }
     .main-logo:hover { transform: scale(1.05); }
+
+    /* ── ANIMAÇÕES DE FADE-IN ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ── BOTÃO DE PARTILHA ── */
     .share-btn {
@@ -576,13 +604,14 @@
 
   <!-- HERO -->
   <section class="hero">  
-    <h2>Onde o tempo ganha forma</h2>
- <h1>Móveis Vintage Rústicos</h1>
-    
-    <a href="#galeria" class="btn">Explorar Peças</a>
+    <div class="reveal active">
+      <h2>Onde o tempo ganha forma</h2>
+      <h1>Móveis Vintage Rústicos</h1>
+      <a href="#galeria" class="btn">Explorar Peças</a>
+    </div>
   </section>
   <!-- SOBRE -->
-  <section id="sobre" class="sobre">
+  <section id="sobre" class="sobre reveal">
     <div class="sobre-text">
       <h3>A Nossa História</h3>
       <p>
@@ -600,7 +629,7 @@
   </section>
 
   <!-- GALERIA -->
-  <section id="galeria">
+  <section id="galeria" class="reveal">
     <div class="section-header">
       <h3>A Nossa Coleção</h3>
       <p>Clique nas imagens para ver detalhes.</p>
@@ -611,7 +640,7 @@
   </section>
 
   <!-- CONTACTO -->
-  <section id="contacto" class="contacto">
+  <section id="contacto" class="contacto reveal">
     <div class="contact-grid">
       <div class="contact-info">
         <h4>Venha-nos visitar!</h4>
@@ -770,6 +799,21 @@
     function abrirPrivacidade() {
       document.getElementById('privacyModal').classList.add('active');
     }
+
+    // Animação de Fade-In ao fazer Scroll
+    function reveal() {
+      var reveals = document.querySelectorAll(".reveal");
+      for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        var elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        }
+      }
+    }
+    window.addEventListener("scroll", reveal);
+    window.addEventListener("load", reveal);
 
     function fecharPrivacidade() {
       document.getElementById('privacyModal').classList.remove('active');
