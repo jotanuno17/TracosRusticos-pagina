@@ -75,8 +75,39 @@
       max-width: 150px;
       height: auto;
       display: block;
-      /* Filtro para converter branco para #b8966e (dourado) com brilho aumentado */
-      filter: invert(67%) sepia(13%) saturate(1063%) hue-rotate(352deg) brightness(110%) contrast(90%);
+      /* Filtro para converter branco para #b8966e (dourado) com contraste e brilho otimizados */
+      filter: invert(67%) sepia(13%) saturate(1063%) hue-rotate(352deg) brightness(115%) contrast(95%);
+      transition: transform 0.3s ease;
+    }
+    .main-logo:hover { transform: scale(1.05); }
+
+    /* ── BOTÃO DE PARTILHA ── */
+    .share-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--gold);
+      color: var(--dark);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      z-index: 999;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    .share-btn:hover {
+      transform: scale(1.1) translateY(-5px);
+      background: var(--white);
+    }
+    .share-btn svg { width: 24px; height: 24px; fill: currentColor; }
+    
+    @media (max-width: 600px) {
+      .share-btn { bottom: 1.5rem; right: 1.5rem; width: 45px; height: 45px; }
     }
 
     nav a {
@@ -602,6 +633,11 @@
     </p>
   </footer>
 
+  <!-- SHARE BUTTON -->
+  <button class="share-btn" onclick="partilharPagina()" title="Partilhar com amigos">
+    <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92zM18 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM6 13c-.55 0-1-.45-1-1s.45-1-1-1 1-.45 1-1 .45 1 1 1zM18 20c-.55 0-1-.45-1-1s.45-1-1-1 1-.45 1-1 .45 1 1 1z"/></svg>
+  </button>
+
   <!-- COOKIE BAR -->
   <div class="cookie-bar" id="cookieBar">
     <p>
@@ -712,8 +748,23 @@
     }
 
     function aceitarCookies() {
-      localStorage.setItem('cookies', '1');
-      document.getElementById('cookieBar').classList.remove('visible');
+      localStorage.setItem('cookiesAceites', 'true');
+      document.getElementById('cookieBar').style.display = 'none';
+    }
+
+    function partilharPagina() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Traços Rústicos | Antiguidades & Peças com História',
+          text: 'Descobre peças únicas e mobiliário vintage restaurado na Traços Rústicos.',
+          url: window.location.href
+        }).catch(console.error);
+      } else {
+        // Fallback: Copiar para o clipboard
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert('Link copiado para a área de transferência! Partilha com os teus amigos.');
+        });
+      }
     }
 
     function abrirPrivacidade() {
