@@ -282,6 +282,39 @@
     .gallery-item:hover .gallery-overlay { opacity: 1; }
     .gallery-overlay h4 { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
 
+    /* ── FILTROS DA GALERIA ── */
+    .gallery-filters {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: none;
+      border: 1px solid rgba(184,150,110,0.3);
+      color: var(--cream);
+      padding: 0.6rem 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .filter-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--dark);
+    }
+
     /* ── ETIQUETAS DE DISPONIBILIDADE ── */
     .badge {
       position: absolute;
@@ -634,7 +667,7 @@
   </div>
   <nav class="main-nav">
     <a href="#sobre" class="nav-btn">História</a>
-    <a href="#galeria" class="nav-btn">Coleção</a>
+    <a href="#galeria" class="nav-btn">Galeria</a>
     <a href="#contacto" class="nav-btn">Contacto</a>
   </nav>
 </header>
@@ -668,9 +701,15 @@
   <!-- GALERIA -->
   <section id="galeria" class="reveal">
     <div class="section-header">
-      <h3>A Nossa Coleção</h3>
+      <h3>A Nossa Galeria</h3>
       <p>Clique nas imagens para ver detalhes.</p>
       <p style="font-style: italic; margin-top: 0.5rem; opacity: 0.8; font-size: 0.95rem;">Nota: Devido à natureza única das nossas peças, algumas podem já estar indisponíveis.</p>
+    </div>
+
+    <div class="gallery-filters">
+      <button class="filter-btn active" onclick="filtrarGaleria('todas', this)">Todas</button>
+      <button class="filter-btn" onclick="filtrarGaleria('disponivel', this)">Disponíveis</button>
+      <button class="filter-btn" onclick="filtrarGaleria('indisponivel', this)">Indisponíveis</button>
     </div>
     <div class="gallery-grid" id="galleryGrid">
       <div class="gallery-empty">A carregar peças…</div>
@@ -789,24 +828,54 @@
     // ============================================================
 
     const grid = document.getElementById('galleryGrid');
-    grid.innerHTML = '';
     let currentIndex = 0;
+    let pecasFiltradas = [...pecas];
 
-    pecas.forEach((peca, i) => {
-      const statusClass = peca.disponivel ? 'available' : 'unavailable';
-      const statusText = peca.disponivel ? 'Disponível' : 'Indisponível';
-      const badgeClass = peca.disponivel ? 'badge-available' : 'badge-unavailable';
+    function renderizarGaleria(lista) {
+      grid.innerHTML = '';
+      if (lista.length === 0) {
+        grid.innerHTML = '<div class="gallery-empty">Nenhuma peça encontrada nesta categoria.</div>';
+        return;
+      }
+      
+      lista.forEach((peca) => {
+        // Encontrar o índice original para o lightbox
+        const originalIndex = pecas.findIndex(p => p.img === peca.img);
+        const statusClass = peca.disponivel ? 'available' : 'unavailable';
+        const statusText = peca.disponivel ? 'Disponível' : 'Indisponível';
+        const badgeClass = peca.disponivel ? 'badge-available' : 'badge-unavailable';
 
-      grid.innerHTML += `
-        <div class="gallery-item ${statusClass}" onclick="abrirLightbox(${i})">
-          <div class="badge ${badgeClass}">${statusText}</div>
-          <img src="${peca.img}" alt="${peca.titulo}" loading="lazy">
-          <div class="gallery-overlay">
-            <h4>${peca.titulo}</h4>
-            <p>${peca.desc}</p>
-          </div>
-        </div>`;
-    });
+        grid.innerHTML += `
+          <div class="gallery-item ${statusClass}" onclick="abrirLightbox(${originalIndex})">
+            <div class="badge ${badgeClass}">${statusText}</div>
+            <img src="${peca.img}" alt="${peca.titulo}" loading="lazy">
+            <div class="gallery-overlay">
+              <h4>${peca.titulo}</h4>
+              <p>${peca.desc}</p>
+            </div>
+          </div>`;
+      });
+    }
+
+    function filtrarGaleria(filtro, btn) {
+      // Atualizar botões
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Filtrar lista
+      if (filtro === 'todas') {
+        pecasFiltradas = [...pecas];
+      } else if (filtro === 'disponivel') {
+        pecasFiltradas = pecas.filter(p => p.disponivel);
+      } else if (filtro === 'indisponivel') {
+        pecasFiltradas = pecas.filter(p => !p.disponivel);
+      }
+
+      renderizarGaleria(pecasFiltradas);
+    }
+
+    // Inicializar
+    renderizarGaleria(pecas);
 
     function abrirLightbox(i) {
       currentIndex = i;
